@@ -61,4 +61,33 @@ struct CompositionalLayout {
                 subitems: items)
         }
     }
+
+    static func createGroup(
+        alignment: CompositionalGroupAlignment,
+        width: NSCollectionLayoutDimension,
+        height: NSCollectionLayoutDimension,
+        item: NSCollectionLayoutItem,
+        count: Int
+    ) -> NSCollectionLayoutGroup {
+
+        switch alignment {
+
+        case .vertical:
+            return NSCollectionLayoutGroup.vertical(
+                layoutSize:
+                    NSCollectionLayoutSize(
+                        widthDimension: width,
+                        heightDimension: height),
+                subitem: item,
+                count: count)
+        case .horizontal:
+            return NSCollectionLayoutGroup.horizontal(
+                layoutSize:
+                    NSCollectionLayoutSize(
+                        widthDimension: width,
+                        heightDimension: height),
+                subitem: item,
+                count: count)
+        }
+    }
 }
