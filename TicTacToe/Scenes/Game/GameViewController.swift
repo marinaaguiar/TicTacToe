@@ -121,8 +121,8 @@ extension GameViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
 
         let item = viewModel.getItemOnGrid(
-            row: indexPath.row,
-            section: indexPath.section
+            row: indexPath.section,
+            column: indexPath.item
         )
         cell.setup(indicator: item.player.symbol)
         return cell
@@ -133,8 +133,8 @@ extension GameViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         count += 1
-
-        viewModel.playMove(position: (indexPath.row, indexPath.section), for: viewModel.getCurrentPlayer())
+        print("item: \(indexPath.item) \n section: \(indexPath.section) \n row: \(indexPath.row)")
+        viewModel.playMove(position: (indexPath.section, indexPath.item), for: viewModel.getCurrentPlayer())
         collectionView.reloadData()
     }
 }

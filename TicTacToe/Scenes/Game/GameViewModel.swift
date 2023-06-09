@@ -27,12 +27,26 @@ class GameViewModel {
         game.getNumberOfRowsOnGrid()
     }
 
-    func getItemOnGrid(row: Int, section: Int) -> Cell {
-        return game.getItemOnGrid(row: row, section: section)
+    func getItemOnGrid(row: Int, column: Int) -> Cell {
+        return game.getItemOnGrid(row: row, column: column)
     }
 
-    func playMove(position: (row: Int, section: Int), for player: Player) {
-        game.playMove(row: position.row, section: position.section, for: player)
+    func playMove(position: (row: Int, column: Int), for player: Player) {
+        game.playMove(row: position.row, column: position.column, for: player)
+        print(game.boardGrid)
+        var gameState = GameState(player: player, boardGrid: game.boardGrid)
+
+        if gameState.hasRowFilled(row: position.row) {
+            print("row filled win \(player)")
+        }
+
+        if gameState.hasColumnFilled(column: position.column) {
+            print("column filled win \(player)")
+        }
+
+        if gameState.hasDiagonalFilled(row: position.row, column: position.column) {
+            print("Diagonal filled win \(player)")
+        }
     }
 
     func getCurrentPlayer() -> Player {
