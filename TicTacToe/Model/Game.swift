@@ -10,7 +10,7 @@ import Foundation
 struct Game {
 
     private var playerTurn: Turn
-    private var boardGrid: BoardGrid
+    var boardGrid: BoardGrid
 
     var currentPlayerTurn: Player {
         return playerTurn.currentPlayerTurn
@@ -21,17 +21,17 @@ struct Game {
         playerTurn = Turn()
     }
 
-    mutating func playMove(row: Int, section: Int, for player: Player) {
-        boardGrid.updateItemOnGrid(row: row, section: section, player: player)
-        update()
+    mutating func playMove(row: Int, column: Int, for player: Player) {
+        boardGrid.updateItemOnGrid(row: row, column: column, player: player)
+        updatePlayer()
     }
 
-    mutating func getItemOnGrid(row: Int, section: Int) -> Cell {
+    mutating func getItemOnGrid(row: Int, column: Int) -> Cell {
         let items = boardGrid.grid
-        return items[row][section]
+        return items[row][column]
     }
 
-    mutating func update() {
+    mutating func updatePlayer() {
         playerTurn.switch()
     }
 
