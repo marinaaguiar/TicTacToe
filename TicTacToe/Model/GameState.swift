@@ -26,6 +26,6 @@ struct GameState {
     }
 
     mutating func hasDiagonalFilled(row: Int, column: Int) -> Bool {
-        return boardGrid.hasDiagonalFilled(position: (row, column), for: player)
+        return boardGrid.hasDiagonalFilled(for: player)
     }
 }

@@ -10,9 +10,7 @@ import Foundation
 struct BoardGrid {
 
     private let rowsCount: Int = 3
-
-    lazy var grid: [[Cell]] = []
-
+    lazy var grid: [[Move]] = []
     var numberOfRows: Int {
         return rowsCount
     }
@@ -22,26 +20,25 @@ struct BoardGrid {
     }
 
     private mutating func populateGrid() {
-
         for row in 0..<rowsCount {
-            var newRow: [Cell] = []
+            var newRow: [Move] = []
 
             for col in 0..<rowsCount {
-                let cell = Cell(position: (row, col), player: .none)
+                let cell = Move(position: Position(row: row, column: col), player: .none)
                 newRow.append(cell)
             }
-
             grid.append(newRow)
         }
-
         print(grid)
     }
 
-    mutating func updateItemOnGrid(row: Int, column: Int, player: Player) {
+    mutating func updateItemOnGrid(move: Move) {
+        let row = move.position.row
+        let column = move.position.column
         let position = grid[row][column]
         
         if position.player == .none {
-            grid[row][column].player = player
+            grid[row][column].player = move.player
         }
     }
 
@@ -54,7 +51,7 @@ struct BoardGrid {
     }
 
     mutating func hasColumnFilled(column: Int, for player: Player) -> Bool {
-        var columnCells: [Cell] = []
+        var columnCells: [Move] = []
 
         for row in 0..<numberOfRows {
             if grid[row][column].player == player {
@@ -65,10 +62,10 @@ struct BoardGrid {
         return columnCells.count == numberOfRows
     }
 
-    mutating func hasDiagonalFilled(position: (Int, Int), for player: Player) -> Bool {
+    mutating func hasDiagonalFilled(for player: Player) -> Bool {
         var lastIndex = numberOfRows - 1
-        var leftDiagonalCells: [Cell] = []
-        var rightDiagonalCells: [Cell] = []
+        var leftDiagonalCells: [Move] = []
+        var rightDiagonalCells: [Move] = []
 
         for i in 0..<numberOfRows {
             if grid[i][i].player == player {

@@ -11,11 +11,9 @@ class GameViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
 
-    private var isHumanTurn: Bool = true
     private let collectionViewInset: Double = 5
-    var count = 0
 
-    private var viewModel = GameViewModel()
+    private var viewModel = Game()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,21 +45,6 @@ class GameViewController: UIViewController {
         collectionView.updateConstraints()
     }
 
-    private func checkWinner(player: Player) -> Bool {
-        var winPatterns: Set<Set<Int>> = [
-            [1, 2, 3],
-            [4, 5, 6],
-            [7, 8, 9],
-            [1, 5, 9],
-            [3, 5, 7],
-            [1, 4, 7],
-            [2, 5, 8],
-            [3, 6, 9]
-        ]
-
-        return false
-    }
-
     private func createLayout() -> UICollectionViewCompositionalLayout {
         let item = CompositionalLayout.createItem(
             width: .fractionalWidth(1),
@@ -83,9 +66,9 @@ class GameViewController: UIViewController {
         let group = CompositionalLayout.createGroup(
             alignment: .horizontal,
             width: .absolute(gridSize),
-            height: .absolute(gridSize / Double(viewModel.getNumberOfRows())),
+            height: .absolute(gridSize / Double(viewModel.getNumberOfRowsOnGrid())),
             item: item,
-            count: viewModel.getNumberOfRows())
+            count: viewModel.getNumberOfRowsOnGrid())
 
         let viewHeight = view.frame.height
         let viewWidth = view.frame.width
@@ -110,19 +93,20 @@ class GameViewController: UIViewController {
 extension GameViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.getNumberOfRows()
+        return viewModel.getNumberOfRowsOnGrid()
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return viewModel.getNumberOfRows()
+        return viewModel.getNumberOfRowsOnGrid()
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
 
         let item = viewModel.getItemOnGrid(
-            row: indexPath.section,
-            column: indexPath.item
+            position: Position(
+                row: indexPath.section,
+                column: indexPath.item)
         )
         cell.setup(indicator: item.player.symbol)
         return cell
@@ -132,9 +116,11 @@ extension GameViewController: UICollectionViewDataSource {
 extension GameViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        count += 1
         print("item: \(indexPath.item) \n section: \(indexPath.section) \n row: \(indexPath.row)")
-        viewModel.playMove(position: (indexPath.section, indexPath.item), for: viewModel.getCurrentPlayer())
+        viewModel.playMove(Move(
+            position: Position(row: indexPath.section, column: indexPath.item),
+            player: viewModel.getCurrentPlayer()))
+
         collectionView.reloadData()
     }
 }
