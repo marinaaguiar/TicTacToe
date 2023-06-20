@@ -20,6 +20,7 @@ class GameViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         setupCollectionViewLayout()
+        viewModel.delegate = self
     }
 
     override func viewWillLayoutSubviews() {
@@ -108,7 +109,17 @@ extension GameViewController: UICollectionViewDataSource {
                 row: indexPath.section,
                 column: indexPath.item)
         )
+
+        let winnerCells = viewModel.getWinnerCells()
+
         cell.setup(indicator: item.player.symbol)
+
+        for move in winnerCells {
+            if indexPath.section == move.position.row &&
+                indexPath.item == move.position.column {
+                cell.fillWinnerCells(indicator: move.player.symbol)
+            }
+        }
         return cell
     }
 }
@@ -125,14 +136,18 @@ extension GameViewController: UICollectionViewDelegate {
     }
 }
 
-class CollectionViewCell: UICollectionViewCell {
+extension GameViewController: GameStateDelegate {
 
-    @IBOutlet weak var cellImageView: UIImageView!
-
-    func setup(indicator: String) {
-        backgroundColor = UIColor(red: 0.92, green: 0.47, blue: 0.44, alpha: 1.00)
-        layer.cornerRadius = 25
-        cellImageView.image = UIImage(systemName: indicator)
-        cellImageView.tintColor = .white
+    func didUpdate(with state: GameState) {
+        switch state {
+        case .playerWins(let player):
+            print("CONGRATS \(player)".uppercased())
+        case .tie:
+            print("OH NO! IT'S A TIE")
+        case .idle:
+            break
+        }
     }
 }
+
+

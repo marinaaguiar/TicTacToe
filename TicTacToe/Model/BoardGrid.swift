@@ -46,38 +46,14 @@ struct BoardGrid {
         return grid.flatMap{ $0 }.count
     }
 
-    mutating func hasRowFilled(row: Int, for player: Player) -> Bool {
-        return grid[row].allSatisfy({ $0.player == player })
-    }
-
-    mutating func hasColumnFilled(column: Int, for player: Player) -> Bool {
-        var columnCells: [Move] = []
-
-        for row in 0..<numberOfRows {
-            if grid[row][column].player == player {
-                columnCells.append(grid[row][column])
+    mutating func isGridFilled() -> Bool {
+        for row in grid {
+            for cell in row {
+                if cell.player == TicTacToe.Player.none {
+                    return false
+                }
             }
         }
-
-        return columnCells.count == numberOfRows
-    }
-
-    mutating func hasDiagonalFilled(for player: Player) -> Bool {
-        var lastIndex = numberOfRows - 1
-        var leftDiagonalCells: [Move] = []
-        var rightDiagonalCells: [Move] = []
-
-        for i in 0..<numberOfRows {
-            if grid[i][i].player == player {
-                leftDiagonalCells.append(grid[i][i])
-            }
-
-            if grid[i][lastIndex].player == player {
-                rightDiagonalCells.append(grid[i][lastIndex])
-                lastIndex -= 1
-            }
-        }
-        return leftDiagonalCells.count == numberOfRows || rightDiagonalCells.count == numberOfRows
+        return true
     }
 }
-

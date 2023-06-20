@@ -11,6 +11,13 @@ struct Game {
 
     private var playerTurn: Turn
     private var boardGrid: BoardGrid
+    weak var delegate: GameStateDelegate?
+    private var state: GameState {
+        didSet {
+            self.delegate?.didUpdate(with: state)
+        }
+    }
+    private var winnerCase: WinnerCase
 
     private var currentPlayerTurn: Player {
         return playerTurn.currentPlayerTurn
@@ -19,11 +26,14 @@ struct Game {
     init() {
         playerTurn = Turn()
         boardGrid = BoardGrid()
+        self.state = .idle
+        self.winnerCase = .none
     }
 
     private mutating func startGame() {
         playerTurn = Turn()
         boardGrid = BoardGrid()
+        winnerCase = .none
     }
 
     mutating func resetGame() {
@@ -33,30 +43,36 @@ struct Game {
     mutating func playMove(_ move: Move) {
         boardGrid.updateItemOnGrid(move: move)
         print(boardGrid)
-        if isThereAWinner(for: move) {
-            print("Game Winner is \(move.player)")
-        } else {
+        updateGameStates(move)
+
+        if !gameIsOver() {
             updatePlayer()
         }
     }
 
-    mutating func isThereAWinner(for move: Move) -> Bool {
-
-        if boardGrid.hasRowFilled(row: move.position.row, for: move.player) {
-            print("row filled win \(move.player)")
-            return true
+    mutating func updateGameStates(_ move: Move) {
+        var gameState = GameRulesCalculator(boardGrid: boardGrid)
+        state = gameState.applyRules(for: move)
+        if state == .playerWins(.player1) || state == .playerWins(.player2) {
+            winnerCase = gameState.winnerCase
         }
+    }
 
-        if boardGrid.hasColumnFilled(column: move.position.column, for: move.player) {
-            print("column filled win \(move.player)")
-            return true
+    mutating func getWinnerCells() -> [Move] {
+        switch winnerCase {
+        case .rowFilled(let moves):
+            return moves
+        case .columnFilled(let moves):
+            return moves
+        case .diagonalFilled(let moves):
+            return moves
+        case .none:
+            return []
         }
+    }
 
-        if boardGrid.hasDiagonalFilled(for: move.player) {
-            print("Diagonal filled win \(move.player)")
-            return true
-        }
-        return false
+    func gameIsOver() -> Bool {
+        return state != .idle
     }
 
     mutating func getItemOnGrid(position: Position) -> Move {
