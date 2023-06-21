@@ -19,7 +19,7 @@ class CollectionViewCell: UICollectionViewCell {
     }
 
     func fillWinnerCells(indicator: String) {
-        backgroundColor = UIColor(red: 0.32, green: 0.72, blue: 0.53, alpha: 1.00)
+        backgroundColor = UIColor(red: 0.85, green: 0.93, blue: 0.57, alpha: 1.00)
         cellImageView.image = UIImage(systemName: indicator)
         cellImageView.tintColor = .white
     }

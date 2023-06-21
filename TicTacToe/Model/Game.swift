@@ -53,7 +53,7 @@ struct Game {
     mutating func updateGameStates(_ move: Move) {
         var gameState = GameRulesCalculator(boardGrid: boardGrid)
         state = gameState.applyRules(for: move)
-        if state == .playerWins(.player1) || state == .playerWins(.player2) {
+        if state == .playerWins(.playerX) || state == .playerWins(.playerO) {
             winnerCase = gameState.winnerCase
         }
     }

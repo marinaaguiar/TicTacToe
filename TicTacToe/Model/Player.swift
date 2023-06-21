@@ -9,13 +9,13 @@ import Foundation
 
 enum Player: CaseIterable {
 
-    case player1, player2, none
+    case playerX, playerO, none
 
     var symbol: String {
         switch self {
-        case .player1:
+        case .playerX:
             return "xmark"
-        case .player2:
+        case .playerO:
             return "circle"
         case .none:
             return ""

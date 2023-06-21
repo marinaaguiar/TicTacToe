@@ -16,14 +16,14 @@ struct Turn {
     }
     
     init() {
-        playerTurn = .player1
+        playerTurn = .playerX
     }
 
     mutating func `switch`() {
-        if playerTurn == .player1 {
-            playerTurn = .player2
+        if playerTurn == .playerX {
+            playerTurn = .playerO
         } else {
-            playerTurn = .player1
+            playerTurn = .playerX
         }
     }
 }

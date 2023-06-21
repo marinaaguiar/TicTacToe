@@ -25,16 +25,16 @@ final class GameTests: XCTestCase {
 
     func testSwitchPlayerTurn() {
         let currentPlayer = game.getCurrentPlayer()
-        var expectedResult: Player = .player2
+        var expectedResult: Player = .playerO
 
         switch currentPlayer {
-        case .player1:
+        case .playerX:
             game.updatePlayer()
-            expectedResult = .player2
+            expectedResult = .playerO
             XCTAssertEqual(game.getCurrentPlayer(), expectedResult)
-        case .player2:
+        case .playerO:
             game.updatePlayer()
-            expectedResult = .player1
+            expectedResult = .playerX
             XCTAssertEqual(game.getCurrentPlayer(), expectedResult)
         case .none:
             break
@@ -43,7 +43,7 @@ final class GameTests: XCTestCase {
 
     func testStartWithPlayerX() {
         let gameFirstTurn = game.getCurrentPlayer()
-        XCTAssertEqual(gameFirstTurn, .player1)
+        XCTAssertEqual(gameFirstTurn, .playerX)
     }
 
     func testAllCellsEmptyWhenGameStart() {
@@ -65,22 +65,22 @@ final class GameTests: XCTestCase {
 
     func testMoveForPlayer1() {
         let position = Position(row: 0, column: 0)
-        let movePlayer1 = Move(position: position, player: .player1)
+        let movePlayer1 = Move(position: position, player: .playerX)
 
         boardGrid.updateItemOnGrid(move: movePlayer1)
 
         let cell = boardGrid.grid[position.row][position.column]
-        XCTAssertEqual(cell.player, .player1)
+        XCTAssertEqual(cell.player, .playerX)
     }
 
     func testMoveForPlayer2() {
         let position = Position(row: 0, column: 2)
-        let movePlayer2 = Move(position: position, player: .player2)
+        let movePlayer2 = Move(position: position, player: .playerO)
 
         boardGrid.updateItemOnGrid(move: movePlayer2)
 
         let cell = boardGrid.grid[position.row][position.column]
-        XCTAssertEqual(cell.player, .player2)
+        XCTAssertEqual(cell.player, .playerO)
     }
 
     func testResetGame() {
