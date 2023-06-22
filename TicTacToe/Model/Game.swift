@@ -17,6 +17,11 @@ struct Game {
             self.delegate?.didUpdate(with: state)
         }
     }
+
+    var gameState: GameState {
+        return self.state
+    }
+
     private var winnerCase: WinnerCase
 
     private var currentPlayerTurn: Player {

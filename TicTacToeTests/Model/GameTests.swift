@@ -93,4 +93,37 @@ final class GameTests: XCTestCase {
             }
         }
     }
+
+    func testPlayerXWinsOnDiagonal() {
+        let numberOfRows = boardGrid.numberOfRows
+
+        for i in 0..<numberOfRows {
+            let position = Position(row: i, column: i)
+            let movePlayerX = Move(position: position, player: .playerX)
+            game.playMove(movePlayerX)
+        }
+        XCTAssertEqual(game.gameState, .playerWins(.playerX))
+    }
+
+    func testPlayerOWinsOnRow() {
+        let numberOfRows = boardGrid.numberOfRows
+
+        for i in 0..<numberOfRows {
+            let position = Position(row: 0, column: i)
+            let movePlayerO = Move(position: position, player: .playerO)
+            game.playMove(movePlayerO)
+        }
+        XCTAssertEqual(game.gameState, .playerWins(.playerO))
+    }
+
+    func testPlayerOWinsOnColumn() {
+        let numberOfRows = boardGrid.numberOfRows
+
+        for i in 0..<numberOfRows {
+            let position = Position(row: i, column: 0)
+            let movePlayerO = Move(position: position, player: .playerO)
+            game.playMove(movePlayerO)
+        }
+        XCTAssertEqual(game.gameState, .playerWins(.playerO))
+    }
 }

@@ -9,8 +9,9 @@ import Foundation
 
 struct BoardGrid {
 
-    private let rowsCount: Int = 3
+    private var rowsCount: Int = 3
     lazy var grid: [[Move]] = []
+    
     var numberOfRows: Int {
         return rowsCount
     }
@@ -55,5 +56,9 @@ struct BoardGrid {
             }
         }
         return true
+    }
+
+    mutating func changeNumberOfRows(for value: Int) {
+        rowsCount = value
     }
 }
