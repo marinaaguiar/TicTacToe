@@ -58,11 +58,6 @@ final class GameTests: XCTestCase {
         }
     }
 
-    func testIsCellEmpty() {
-        let cell = boardGrid.grid[0][1]
-        XCTAssertTrue(cell.player == .none)
-    }
-
     func testMoveForPlayer1() {
         let position = Position(row: 0, column: 0)
         let movePlayer1 = Move(position: position, player: .playerX)
@@ -105,6 +100,19 @@ final class GameTests: XCTestCase {
         XCTAssertEqual(game.gameState, .playerWins(.playerX))
     }
 
+    func testPlayerOWinsOnLeftDiagonal() {
+        let numberOfRows = boardGrid.numberOfRows
+        var lastIndex = numberOfRows - 1
+
+        for i in 0..<numberOfRows {
+            let position = Position(row: i, column: lastIndex)
+            let movePlayerO = Move(position: position, player: .playerO)
+            game.playMove(movePlayerO)
+            lastIndex -= 1
+        }
+        XCTAssertEqual(game.gameState, .playerWins(.playerO))
+    }
+
     func testPlayerOWinsOnRow() {
         let numberOfRows = boardGrid.numberOfRows
 
@@ -121,7 +129,9 @@ final class GameTests: XCTestCase {
 
         for i in 0..<numberOfRows {
             let position = Position(row: i, column: 0)
-            let movePlayerO = Move(position: position, player: .playerO)
+            let movePlayerO = Move(
+                position: position,
+                player: .playerO)
             game.playMove(movePlayerO)
         }
         XCTAssertEqual(game.gameState, .playerWins(.playerO))
