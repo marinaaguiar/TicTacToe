@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct BoardGrid {
+class BoardGrid {
 
     private var rowsCount: Int = 3
     lazy var grid: [[Move]] = []
@@ -20,7 +20,7 @@ struct BoardGrid {
         populateGrid()
     }
 
-    private mutating func populateGrid() {
+    private func populateGrid() {
         for row in 0..<rowsCount {
             var newRow: [Move] = []
 
@@ -33,7 +33,7 @@ struct BoardGrid {
         print(grid)
     }
 
-    mutating func updateItemOnGrid(move: Move) {
+    func updateItemOnGrid(move: Move) {
         let row = move.position.row
         let column = move.position.column
         let position = grid[row][column]
@@ -43,11 +43,11 @@ struct BoardGrid {
         }
     }
 
-    mutating func numberOfCells() -> Int {
+    func numberOfCells() -> Int {
         return grid.flatMap{ $0 }.count
     }
 
-    mutating func isGridFilled() -> Bool {
+    func isGridFilled() -> Bool {
         for row in grid {
             for cell in row {
                 if cell.player == TicTacToe.Player.none {
@@ -58,7 +58,7 @@ struct BoardGrid {
         return true
     }
 
-    mutating func changeNumberOfRows(for value: Int) {
+    func changeNumberOfRows(for value: Int) {
         rowsCount = value
     }
 }
