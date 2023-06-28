@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Game {
+final class Game {
 
     private var playerTurn: Turn
     private var boardGrid: BoardGrid
@@ -22,7 +22,7 @@ struct Game {
         return self.state
     }
 
-    private var winnerCase: WinnerCase
+    var winnerCase: WinnerCase
 
     private var currentPlayerTurn: Player {
         return playerTurn.currentPlayerTurn
@@ -35,17 +35,17 @@ struct Game {
         self.winnerCase = .none
     }
 
-    private mutating func startGame() {
+    func startGame() {
         playerTurn = Turn()
         boardGrid = BoardGrid()
         winnerCase = .none
     }
 
-    mutating func resetGame() {
+    func resetGame() {
         startGame()
     }
 
-    mutating func playMove(_ move: Move) {
+    func playMove(_ move: Move) {
         boardGrid.updateItemOnGrid(move: move)
         print(boardGrid)
         updateGameStates(move)
@@ -55,15 +55,12 @@ struct Game {
         }
     }
 
-    mutating func updateGameStates(_ move: Move) {
-        var gameState = GameRulesCalculator(boardGrid: boardGrid)
-        state = gameState.applyRules(for: move)
-        if state == .playerWins(.playerX) || state == .playerWins(.playerO) {
-            winnerCase = gameState.winnerCase
-        }
+    func updateGameStates(_ move: Move) {
+        var gameRules = GameRulesCalculator(game: self, boardGrid: boardGrid)
+        state = gameRules.applyRules(for: move)
     }
 
-    mutating func getWinnerCells() -> [Move] {
+    func getWinnerCells() -> [Move] {
         switch winnerCase {
         case .rowFilled(let moves):
             return moves
@@ -76,16 +73,16 @@ struct Game {
         }
     }
 
-    func gameIsOver() -> Bool {
+    private func gameIsOver() -> Bool {
         return state != .idle
     }
 
-    mutating func getItemOnGrid(position: Position) -> Move {
+    func getItemOnGrid(position: Position) -> Move {
         let items = boardGrid.grid
         return items[position.row][position.column]
     }
 
-    mutating func updatePlayer() {
+    func updatePlayer() {
         playerTurn.switch()
     }
 
