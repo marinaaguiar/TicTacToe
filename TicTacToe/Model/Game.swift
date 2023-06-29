@@ -18,6 +18,7 @@ final class Game {
         }
     }
 
+    var gameLevel: GameLevel?
     var gameState: GameState {
         return self.state
     }
@@ -30,19 +31,21 @@ final class Game {
 
     init() {
         playerTurn = Turn()
-        boardGrid = BoardGrid()
+        boardGrid = BoardGrid(level: .easy)
         self.state = .idle
         self.winnerCase = .none
     }
 
-    func startGame() {
+    func startGame(level: GameLevel) {
         playerTurn = Turn()
-        boardGrid = BoardGrid()
+        boardGrid = BoardGrid(level: level)
+        gameLevel = level
+        state = .idle
         winnerCase = .none
     }
 
     func resetGame() {
-        startGame()
+        startGame(level: gameLevel ?? .easy)
     }
 
     func playMove(_ move: Move) {
@@ -56,7 +59,7 @@ final class Game {
     }
 
     func updateGameStates(_ move: Move) {
-        var gameRules = GameRulesCalculator(game: self, boardGrid: boardGrid)
+        let gameRules = GameRulesCalculator(game: self, boardGrid: boardGrid)
         state = gameRules.applyRules(for: move)
     }
 
@@ -88,6 +91,11 @@ final class Game {
 
     func getNumberOfRowsOnGrid() -> Int {
         return boardGrid.numberOfRows
+    }
+
+    func updateNumberOfRowsOnGrid(for level: GameLevel) {
+        startGame(level: level)
+        delegate?.numberOfRowsDidUpdate()
     }
 
     func getCurrentPlayer() -> Player {

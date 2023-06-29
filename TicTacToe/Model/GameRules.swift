@@ -22,6 +22,7 @@ enum WinnerCase {
 
 protocol GameStateDelegate: AnyObject {
     func didUpdate(with state: GameState)
+    func numberOfRowsDidUpdate()
 }
 
 struct GameRulesCalculator {

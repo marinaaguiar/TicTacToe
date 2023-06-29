@@ -9,22 +9,23 @@ import Foundation
 
 class BoardGrid {
 
-    private var rowsCount: Int = 3
+    var rowsCount: Int
     lazy var grid: [[Move]] = []
     
     var numberOfRows: Int {
         return rowsCount
     }
 
-    init() {
+    init(level: GameLevel) {
+        rowsCount = level.rawValue
         populateGrid()
     }
 
     private func populateGrid() {
-        for row in 0..<rowsCount {
+        for row in 0..<numberOfRows {
             var newRow: [Move] = []
 
-            for col in 0..<rowsCount {
+            for col in 0..<numberOfRows {
                 let cell = Move(position: Position(row: row, column: col), player: .none)
                 newRow.append(cell)
             }

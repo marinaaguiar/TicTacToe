@@ -14,6 +14,7 @@
 		9C79AEFF2A168B3A003727EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C79AEFD2A168B3A003727EC /* Main.storyboard */; };
 		9C79AF012A168B3B003727EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C79AF002A168B3B003727EC /* Assets.xcassets */; };
 		9C79AF042A168B3B003727EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C79AF022A168B3B003727EC /* LaunchScreen.storyboard */; };
+		9C7FF8732A4DBBB2006C4EBD /* GameLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7FF8722A4DBBB2006C4EBD /* GameLevel.swift */; };
 		9C9DDB1B2A3B5F4D000BAE45 /* GameRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C9DDB1A2A3B5F4D000BAE45 /* GameRules.swift */; };
 		9C9DDB1D2A405D04000BAE45 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C9DDB1C2A405D04000BAE45 /* CollectionViewCell.swift */; };
 		9C9DDB212A41FB28000BAE45 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 9C9DDB202A41FB28000BAE45 /* Lottie */; };
@@ -48,6 +49,7 @@
 		9C79AF002A168B3B003727EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9C79AF032A168B3B003727EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9C79AF052A168B3B003727EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9C7FF8722A4DBBB2006C4EBD /* GameLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLevel.swift; sourceTree = "<group>"; };
 		9C9DDB1A2A3B5F4D000BAE45 /* GameRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRules.swift; sourceTree = "<group>"; };
 		9C9DDB1C2A405D04000BAE45 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		9C9DDB282A420200000BAE45 /* Confetti.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Confetti.json; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				9CD369282A1FADCA0054A4BC /* Player.swift */,
 				9CD3693D2A20F0110054A4BC /* Turn.swift */,
 				9CD369442A2F9D870054A4BC /* Move.swift */,
+				9C7FF8722A4DBBB2006C4EBD /* GameLevel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 				9C79AEFA2A168B3A003727EC /* SceneDelegate.swift in Sources */,
 				9C9DDB1B2A3B5F4D000BAE45 /* GameRules.swift in Sources */,
 				9C9DDB1D2A405D04000BAE45 /* CollectionViewCell.swift in Sources */,
+				9C7FF8732A4DBBB2006C4EBD /* GameLevel.swift in Sources */,
 				9C7447242A4330B3007298DB /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

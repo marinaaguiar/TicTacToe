@@ -65,8 +65,10 @@ class GameViewController: UIViewController {
     }
 
     @objc func settingsButtonSelected() {
-        guard let settingsViewController = storyboard?.instantiateViewController(withIdentifier: SettingsViewController.id) else { return }
-        present(settingsViewController, animated: true)
+        guard let settingsViewController = storyboard?.instantiateViewController(withIdentifier: SettingsViewController.id) as? SettingsViewController else { return }
+        self.hideLabel()
+        settingsViewController.viewModel = viewModel
+        navigationController?.present(settingsViewController, animated: true)
         print("settings")
     }
 
@@ -77,8 +79,7 @@ class GameViewController: UIViewController {
         hideLabel()
     }
 
-
-    func setupLabel() {
+    private func setupLabel() {
         view.addSubview(resultLabel)
         resultLabel.translatesAutoresizingMaskIntoConstraints = false
 
@@ -88,10 +89,10 @@ class GameViewController: UIViewController {
         ])
     }
 
-    func showLabel(for state: GameState) {
+    private func showLabel(for state: GameState) {
         resultLabel.isHidden = false
         UIView.animate(withDuration: 1.5) {
-            self.resultLabel.transform = CGAffineTransform(scaleX: 2.5, y: 2.5)
+            self.resultLabel.transform = CGAffineTransform(scaleX: 2.0, y: 2.0)
         }
         collectionView.layer.opacity = 0.2
 
@@ -105,13 +106,13 @@ class GameViewController: UIViewController {
         }
     }
 
-    func hideLabel() {
+    private func hideLabel() {
         resultLabel.isHidden = true
         collectionView.layer.opacity = 10
         self.resultLabel.transform = CGAffineTransform(scaleX: 1, y: 1)
     }
 
-    func presentAnimation(_ loaderAnimation: AnimationType) {
+    private func presentAnimation(_ loaderAnimation: AnimationType) {
         tabBarController?.tabBar.isHidden = true
         animationView?.isHidden = false
 
@@ -235,6 +236,11 @@ extension GameViewController: UICollectionViewDelegate {
 
 extension GameViewController: GameStateDelegate {
 
+    func numberOfRowsDidUpdate() {
+        collectionView.reloadData()
+        setupCollectionViewLayout()
+    }
+
     func didUpdate(with state: GameState) {
         switch state {
         case .playerWins(let player):
@@ -258,6 +264,7 @@ extension GameViewController: GameStateDelegate {
             }
             print("OH NO! IT'S A TIE")
         case .idle:
+            collectionView.isUserInteractionEnabled = true 
             break
         }
     }
