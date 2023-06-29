@@ -11,7 +11,7 @@ import XCTest
 final class GameTests: XCTestCase {
 
     var game: Game!
-    var boardGrid: BoardGrid = BoardGrid()
+    var boardGrid: BoardGrid = BoardGrid(level: .medium)
 
     override func setUp() {
         super.setUp()
@@ -46,8 +46,17 @@ final class GameTests: XCTestCase {
         XCTAssertEqual(gameFirstTurn, .playerX)
     }
 
-    func testAllCellsEmptyWhenGameStart() {
+    func testChangeGameLevelToMedium() {
+        game.updateNumberOfRowsOnGrid(for: .medium)
+        XCTAssertEqual(game.gameLevel, .medium)
+    }
 
+    func testChangeGameLevelToHard() {
+        game.updateNumberOfRowsOnGrid(for: .hard)
+        XCTAssertEqual(game.gameLevel, .hard)
+    }
+
+    func testAllCellsEmptyWhenGameStart() {
         let rowsCount = boardGrid.numberOfRows
         for row in 0..<rowsCount {
 
@@ -56,6 +65,18 @@ final class GameTests: XCTestCase {
                 XCTAssertTrue(cell.player == .none)
             }
         }
+    }
+
+    func testBlockNewMoveInAFilledCell() {
+        let position = Position(row: 0, column: 0)
+        let movePlayerX = Move(position: position, player: .playerX)
+        boardGrid.updateItemOnGrid(move: movePlayerX)
+
+        let movePlayerO = Move(position: position, player: .playerO)
+        boardGrid.updateItemOnGrid(move: movePlayerO)
+
+        let cell = boardGrid.grid[position.row][position.column]
+        XCTAssertEqual(cell.player, .playerX)
     }
 
     func testMoveForPlayer1() {
