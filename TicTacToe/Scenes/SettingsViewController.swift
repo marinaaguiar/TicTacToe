@@ -21,8 +21,9 @@ class SettingsViewController: UIViewController {
     lazy var buttons: [UIButton] = [easyButton, mediumButton, hardButton]
 
     override func viewDidLoad() {
-        title = "Settings"
+        title = "Game Level"
 
+        setupNavBar()
         switch level {
         case .easy:
             disableButton(easyButton)
@@ -35,8 +36,8 @@ class SettingsViewController: UIViewController {
 
     func setupNavBar() {
         navigationController?.navigationBar.backgroundColor = .white
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(didTapBackButton))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapBackButton))
+
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapBackButton))
     }
 
     @objc func didTapBackButton() {
@@ -65,7 +66,12 @@ class SettingsViewController: UIViewController {
     }
 
     @IBAction func didTapDoneButton(_ sender: UIButton) {
-        viewModel.updateNumberOfRowsOnGrid(for: level)
-        dismiss(animated: true)
+        Alert.showBasics(
+            title: "This action will restart your game",
+            message: "Are you sure you want to continue?",
+            vc: self) { 
+                self.dismiss(animated: true)
+                self.viewModel.updateNumberOfRowsOnGrid(for: self.level)
+            }
     }
 }

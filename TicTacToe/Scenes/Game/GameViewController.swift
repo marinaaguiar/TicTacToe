@@ -31,6 +31,7 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Tic Tac Toe"
         collectionView.dataSource = self
         collectionView.delegate = self
         setupCollectionViewLayout()
@@ -66,10 +67,12 @@ class GameViewController: UIViewController {
 
     @objc func settingsButtonSelected() {
         guard let settingsViewController = storyboard?.instantiateViewController(withIdentifier: SettingsViewController.id) as? SettingsViewController else { return }
-        self.hideLabel()
+
+        let navigationController = UINavigationController(rootViewController: settingsViewController)
+
         settingsViewController.viewModel = viewModel
-        navigationController?.present(settingsViewController, animated: true)
-        print("settings")
+        self.hideLabel()
+        present(navigationController, animated: true)
     }
 
     @objc func resetButtonPressed() {
@@ -264,7 +267,7 @@ extension GameViewController: GameStateDelegate {
             }
             print("OH NO! IT'S A TIE")
         case .idle:
-            collectionView.isUserInteractionEnabled = true 
+            collectionView.isUserInteractionEnabled = true
             break
         }
     }

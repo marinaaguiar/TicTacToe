@@ -76,11 +76,11 @@
             <objects>
                 <viewController storyboardIdentifier="SettingViewController" id="WjY-og-A80" customClass="SettingsViewController" customModule="TicTacToe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="g4u-ID-wpT">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4eB-QT-jOt">
-                                <rect key="frame" x="121.66666666666669" y="641" width="150" height="42"/>
+                                <rect key="frame" x="121.66666666666669" y="676" width="150" height="42"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="Kb0-NY-mgZ"/>
                                     <constraint firstAttribute="width" constant="150" id="f6u-EX-0xQ"/>
@@ -96,7 +96,7 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="29" translatesAutoresizingMaskIntoConstraints="NO" id="2cn-s8-UTR">
-                                <rect key="frame" x="116.66666666666669" y="291.66666666666669" width="160" height="200"/>
+                                <rect key="frame" x="116.66666666666669" y="326" width="160" height="200"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cRz-ZA-BqT">
                                         <rect key="frame" x="0.0" y="0.0" width="160" height="47.333333333333336"/>
@@ -121,7 +121,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2y1-V2-ngc">
-                                        <rect key="frame" x="0.0" y="152.66666666666663" width="160" height="47.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="152.66666666666669" width="160" height="47.333333333333343"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Hard">
                                             <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -155,7 +155,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oj9-6L-adl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="907.63358778625945" y="685.91549295774655"/>
+            <point key="canvasLocation" x="908" y="655"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="yIJ-uF-RiH">
@@ -169,12 +169,11 @@
                     <nil name="viewControllers"/>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="tke-YK-pRh"/>
-                        <segue destination="WjY-og-A80" kind="presentation" id="iwe-Ud-0BX"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V5n-Wx-y2b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4" y="-27"/>
+            <point key="canvasLocation" x="54" y="-27"/>
         </scene>
     </scenes>
     <resources>
