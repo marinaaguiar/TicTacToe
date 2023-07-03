@@ -10,3 +10,7 @@ This Tic Tac Toe app is designed to provide an engaging and challenging gaming e
 - UICollectionView  
 - Swift Package Manager (Framework: Lottie Animations)
 - Unit Tests
+
+## How it works
+
+![output](https://github.com/marinaaguiar/TicTacToe/assets/74434212/aee374dd-32d5-4b92-92af-c87b50b64dbb)
